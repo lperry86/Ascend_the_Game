@@ -1,0 +1,44 @@
+<html>
+<head>
+
+<script type="text/javascript">
+
+	quiz = [ {q: "Which are odd numbers?",
+			  a: ["7", "3", "15", "12", "0"], key: "631013287575"},
+			{q: "Which are U.S. States?",
+			a: ["Utah", "Apache", "Maine", "Sonora", "Florida"],key: "2401738283"},
+				{q: "Which are mammals?",
+				a: ["skunk", "tarantula", "dolfin", "human", "aligator"],key: "7026339154",}];
+
+				function nextQuestion(){
+var question=quiz.pop();
+var html="<p>"+question.q+"</p><form>";
+for(var i=0;i<question.a.length;i++){
+html+="<input type='checkbox'>&nbsp;"+question.a[i]+"<br>";
+}
+html+="<input type='button' value='Done' onclick='check(this.form,\""
++question.key+"\")'></form>";
+document.getElementById("tablet").innerHTML=html;
+}
+function check(f,key){
+key=key.replace(/^.*0/,"").substr(0,5);
+for(var i=0;i<key.length;i++) {
+if ((key.charAt(i)<"5")!=f.elements[i].checked) {
+document.getElementById("tablet").innerHTML+=
+"<p>Wrong! Try again.</p>";
+return;
+}
+}
+document.getElementById("tablet").innerHTML+="<p>R ight!</p>";
+if(quiz.length){
+setTimeout("nextQuestion()",500);
+} else {
+document.getElementById("tablet").innerHTML="<p>Do ne!</p>";
+}
+}
+</script>
+</head>
+<body onload="nextQuestion()">
+<div id="tablet"></div>
+</body>
+</html>
